@@ -4,27 +4,35 @@ class Program
 {
     static void Main(string[] args)
     {
-        string host = "eu-central-1.sftpcloud.io";
-        string username = "cb04906e609b4004a36013854650a1a6";
-        string password = "G0vwx7H4WjNSvpmcG04onCP2MJllmCvK";
+        string host = "your_sftp_host";
+        int port = 22; // SFTP default port
+        string username = "your_username";
+        string password = "your_password";
 
-        using (var sftpManager = new SftpManager(host, username, password))
+        using (var sftpManager = new SftpManager(host, port, username, password))
         {
             try
             {
-                Console.WriteLine(AppContext.BaseDirectory);
+                sftpManager.Connect();
 
-                // Upload a file
-                sftpManager.UploadFile(AppContext.BaseDirectory + "/files/upload/localfile.txt", "remotefile.txt");
+                // Example: Upload a file to the SFTP server
+                string localFilePath = AppContext.BaseDirectory + "/files/upload/localfile.txt";
+                string remoteFilePath = "remotefile.txt";
+                sftpManager.UploadFile(localFilePath, remoteFilePath);
+                Console.WriteLine("File uploaded successfully.");
 
-                // Download a file
-                sftpManager.DownloadFile("remotefile_2.txt", AppContext.BaseDirectory + "/files/download/downloadedfile.txt");
-
-                Console.WriteLine("File operations completed successfully.");
+                // Example: Download a file from the SFTP server
+                string downloadedFilePath = AppContext.BaseDirectory + "/files/download/downloadedfile.txt";
+                sftpManager.DownloadFile(remoteFilePath, downloadedFilePath);
+                Console.WriteLine("File downloaded successfully.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                sftpManager.Disconnect();
             }
         }
     }
