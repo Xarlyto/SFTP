@@ -6,10 +6,10 @@ class Program
 
     static void Main()
     {
-        string host = "eu-central-1.sftpcloud.io";
+        string host = "your_sftp_host";
         int port = 22;
-        string username = "e0ecdbd49375449a9e21c715d4a135f4";
-        string password = "9vCYkwqm7V21svQOsG38u3FztKPQXo83";
+        string username = "your_username";
+        string password = "your_password";
         string remoteFilePath = "excelfile_upload.xlsx";
         string localFilePath = AppContext.BaseDirectory + "/files/download/excelfile_downloaded.xlsx";
 
